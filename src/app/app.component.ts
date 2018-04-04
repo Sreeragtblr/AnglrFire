@@ -21,7 +21,7 @@ export class AppComponent {
   private superherocollection: AngularFirestoreCollection<any>;
   items: Observable<any[]>;
   heroes: Observable<any[]>;
-  constructor(private readonly db: AngularFirestore) {
+  constructor(public afAuth: AngularFireAuth,private readonly db: AngularFirestore) {
     // this.itemsCollection = afs.collection('list');
     this.itemDoc = db.doc<any>('heroes/IjFbE8poJPDq9DR6hhGc');
     this.items = this.itemDoc.valueChanges();
@@ -29,9 +29,13 @@ export class AppComponent {
     this.heroes = this.superherocollection.valueChanges();
     // this.items = this.itemsCollection.valueChanges();
   }
-
+  login() {
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+  logout() {
+    this.afAuth.auth.signOut();
+  }
   onSubmit(name: string, alias: string, powers: string) {
-
     // Persist a document id
     const id = this.db.createId();
     const heroes = { name, alias, powers };

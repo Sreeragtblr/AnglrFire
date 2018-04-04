@@ -1,6 +1,9 @@
-<div class="container">
-  <!-- <div [hidden]="submitted"> -->
-    <h1>Hero Form</h1>
+<div *ngIf="afAuth.authState | async as user; else showLogin">
+    
+      <h1>Hello {{ user.displayName }}!</h1>
+      <button (click)="logout()">Logout</button>
+      
+<h1>Hero Form</h1>
       <div class="form-group" >
         <label for="name">Name</label>
         <input type="text" class="form-control" id="name"
@@ -47,14 +50,9 @@
       <input type="text" class="form-control" id="alias"
              [(ngModel)]="alias" [value]="  (items | async)?.alias " name="alias">
     </div>
-
-    <div class="form-group">
-      <label for="power">Hero Power</label>
-      <input class="form-control" id="power"
-              required
-              [(ngModel)]="power" [value]=" (items | async)?.powers " name="power" >
-    </div>
-    <button type="submit" class="btn btn-success" (click)="update(name,alias,power)">OK</button>
-    
 </div>
 </div>
+<ng-template #showLogin>
+  <p>Please login.</p>
+  <button (click)="login()">Login with Google</button>
+</ng-template>
