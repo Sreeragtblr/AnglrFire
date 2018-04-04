@@ -1,0 +1,60 @@
+<div class="container">
+  <!-- <div [hidden]="submitted"> -->
+    <h1>Hero Form</h1>
+      <div class="form-group" >
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name"
+               required
+               [(ngModel)]="name" name="name" >
+        
+      </div>
+
+      <div class="form-group">
+        <label for="alias">Superhero Name</label>
+        <input type="text" class="form-control" id="alias"
+               [(ngModel)]="alias" name="alias">
+      </div>
+
+      <div class="form-group">
+        <label for="power">Hero Power</label>
+        <select class="form-control" id="power"
+                required
+                [(ngModel)]="power" name="power" >
+          <option *ngFor="let pow of powers" [value]="pow">{{pow}}</option>
+        </select>
+       
+      </div>
+
+      <button type="submit" class="btn btn-success" (click)="onSubmit(name,alias,power)">Submit</button>
+<div *ngFor="let hero of heroes | async">
+  <br>
+ Name==> {{hero.name}}<br>
+  Superhero==> {{hero.alias}}<br>
+  Power==>{{hero.powers}}<br>
+</div>
+<div>
+    <h1>Edit Form</h1>
+    <div class="form-group" >
+      <label for="name">Name</label>
+      <input type="text" class="form-control" id="name"
+             required
+             [(ngModel)]="name" [value]=" (items | async)?.name " name="name" >
+      
+    </div>
+
+    <div class="form-group">
+      <label for="alias">Superhero Name</label>
+      <input type="text" class="form-control" id="alias"
+             [(ngModel)]="alias" [value]="  (items | async)?.alias " name="alias">
+    </div>
+
+    <div class="form-group">
+      <label for="power">Hero Power</label>
+      <input class="form-control" id="power"
+              required
+              [(ngModel)]="power" [value]=" (items | async)?.powers " name="power" >
+    </div>
+    <button type="submit" class="btn btn-success" (click)="update(name,alias,power)">OK</button>
+    
+</div>
+</div>
